@@ -115,6 +115,34 @@ const deleteBook = asyncHandler(async (req, res) => {
 })
 
 
-module.exports = { gitAllBooks, gitBookById, createBook, updateBook, deleteBook };
+
+/**
+ * @desc add book to card
+ * @route /api/books/cards
+ * @method Post
+ * @access public
+ */
+
+// Define the route to add a card
+const addToCard = asyncHandler((req, res) => {
+    const { bookTitle, bookDescription } = req.body;
+
+    let cards = [];
+
+    // Validate request data
+    if (!bookTitle || !bookDescription) {
+        return res.status(400).json({ error: 'Title and description are required.' });
+    }
+
+    // Create a new card
+    const newCard = { id: cards.length + 1, bookTitle, bookDescription };
+
+    // Add the card to the database (in-memory array in this example)
+    cards.push(newCard);
+
+    // Respond with the newly created card
+    res.status(201).json(newCard);
+});
+module.exports = { gitAllBooks, gitBookById, createBook, updateBook, deleteBook, addToCard };
 
 
