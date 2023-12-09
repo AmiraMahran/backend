@@ -1,5 +1,6 @@
 //call for express
 const express = require("express");
+var cors =require("cors");
 
 
 require("dotenv").config();
@@ -17,6 +18,17 @@ mongoose
 
 //init App
 const app = express();
+
+app.use(cors({origin:"*",allowedHeaders:"content-Type,Authorization"}));
+
+
+app.use(function(req,res,next){
+    res.setHeader("Access-Control-Allow-Origin","*");
+    res.setHeader("Access-Control-Allow-Methods","GET,POST,PUT,DELET");
+    res.setHeader("Access-Control-Allow-Headers","content-Type");
+    res.setHeader("Access-Control-Allow-Credentials",true);
+
+})
 
 app.use(express.urlencoded({extended:false}));
 
